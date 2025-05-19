@@ -1,3 +1,4 @@
+import argparse
 import os
 import torch
 from torchvision.models import get_model, get_model_weights
@@ -13,8 +14,8 @@ class Model(torch.nn.Module):
         return self.model(x).argmax(dim=1)
 
 
-def main():
-    model_name = "resnet18"
+def main(args):
+    model_name: str = args.model
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     img_name = "cat.png"
@@ -33,4 +34,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Export a model to pt2 format")
+    parser.add_argument("--model", type=str, default="resnet18", help="Model name")
+    args = parser.parse_args()
+    main(args)

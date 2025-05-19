@@ -18,6 +18,7 @@ This project demonstrates how to export a PyTorch model using AOTInductor and ru
    wget https://download.pytorch.org/libtorch/cu118/libtorch-cxx11-abi-shared-with-deps-2.7.0%2Bcu118.zip
    unzip libtorch-cxx11-abi-shared-with-deps-2.7.0+cu118.zip
    ```
+   This will create a `libtorch/` directory in your project folder.
 
 2. **Create a Python virtual environment and install dependencies:**
    ```bash
@@ -27,7 +28,7 @@ This project demonstrates how to export a PyTorch model using AOTInductor and ru
 
 3. **Export/compile the PyTorch model:**
    ```bash
-   uv run model.py
+   uv run model.py --model resnet18
    ```
    This will generate `model.pt2` (AOT-compiled model).
 
@@ -40,11 +41,16 @@ This project demonstrates how to export a PyTorch model using AOTInductor and ru
    ```bash
    uv run cmake --build build --config Release
    ```
+   The compiled binary will be located at `build/aoti_example`.
 
 6. **Run the example:**
    ```bash
    ./build/aoti_example
    ```
+   This will load the compiled model and run inference.
 
 ## Usage
-The example loads the AOT-compiled model and runs inference on a sample image (`cat.png`). You can modify `model.py` and `inference.cpp` to experiment with different models or inputs.
+The example loads the AOT-compiled model and runs inference on a random input data.
+
+- To use a different model, edit `model.py` and re-run step 3.
+- To change the C++ inference logic or input, edit `inference.cpp` and rebuild.
